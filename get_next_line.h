@@ -6,7 +6,7 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 15:50:21 by janhan            #+#    #+#             */
-/*   Updated: 2023/10/16 17:08:36 by janhan           ###   ########.fr       */
+/*   Updated: 2023/10/16 22:14:39 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,13 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+/*---------------------------------get_next_line---------------------------------*/
+char	*get_next_line(int fd);
+char	*ft_substr(char const *str, unsigned int start, size_t len);
+int	ft_strlen(const char *str);
+char	*ft_strchr(const char *str, int i);
+char	*ft_strdup(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
