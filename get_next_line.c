@@ -6,15 +6,15 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 12:08:38 by janhan            #+#    #+#             */
-/*   Updated: 2023/11/02 19:02:15 by janhan           ###   ########.fr       */
+/*   Updated: 2023/11/04 17:52:30 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "./get_next_line.h"
 #include <fcntl.h>
 #include <stdio.h>
 
-t_list	*ft_new_node(int fd)
+static t_list	*ft_new_node(int fd)
 {
 	t_list	*new_node;
 
@@ -27,7 +27,7 @@ t_list	*ft_new_node(int fd)
 	return (new_node);
 }
 
-t_list	*ft_node_serch(t_list **list, int fd)
+static t_list	*ft_node_serch(t_list **list, int fd)
 {
 	t_list	*cursor;
 
@@ -54,7 +54,7 @@ t_list	*ft_node_serch(t_list **list, int fd)
 	return (cursor->next);
 }
 
-char	*read_txt(int fd, char *buff, t_list *list)
+static char	*ft_read_txt(int fd, char *buff, t_list *list)
 {
 	char	*temp_back;
 	int		read_index;
@@ -69,13 +69,10 @@ char	*read_txt(int fd, char *buff, t_list *list)
 			return (NULL);
 		buff[read_index] = '\0';
 		if (!list->backup)
-			list->backup = ft_substr("", 0, 1);
-		if (!list->backup)
-			return (NULL);
+			list->backup = ft_strdup("");
 		temp_back = list->backup;
 		list->backup = ft_strjoin(temp_back, buff);
 		free(temp_back);
-		temp_back = NULL;
 		if (!list->backup)
 			return (NULL);
 		if (ft_strchr(buff, '\n'))
@@ -84,31 +81,34 @@ char	*read_txt(int fd, char *buff, t_list *list)
 	return (list->backup);
 }
 
-char	*cut_line(char *line)
+
+static void	ft_cut_line(t_data *data)
 {
 	size_t	count;
-	size_t	len;
 	char	*temp;
 
 	count = 0;
-	if (!line)
-		return (NULL);
-	len = ft_strlen(line);
-	while (line[count] != '\n' && line[count] != '\0')
-		count++;
-	if (line[count] == '\0' || line[1] == '\0')
-		return (NULL);
-	temp = ft_substr(line, count + 1, len - count);
-	if (!temp)
-		return (NULL);
-	if (*temp == '\0')
+	if (data->node->backup == NULL)
 	{
-		free(temp);
-		temp = NULL;
+		free(data->res);
+		data->res = NULL;
+		return ;
+	}
+	while (data->node->backup[count] != '\n' && data->node->backup[count] != '\0')
+		count++;
+	if (data->node->backup[count] == '\0')
+	{
+		data->res = data->node->backup;
+		data->node->backup = NULL;
 	}
 	else
-		line[count + 1] = '\0';
-	return (temp);
+	{
+		temp = data->node->backup;
+		data->node->backup = ft_strdup(&temp[count + 1]);
+		temp[count + 1] = '\0';
+		data->res = ft_strdup(temp);
+		free(temp);
+	}
 }
 
 char	*get_next_line(int fd)
@@ -126,14 +126,17 @@ char	*get_next_line(int fd)
 		ft_list_clear(&head);
 		return (NULL);
 	}
-	data.line = read_txt(fd, data.buff, head);
+	if (ft_read_txt(fd, data.buff, head) == NULL)
+	{
+		free(data.buff);
+		ft_list_clear(&head);
+		return (NULL);
+	}
 	free(data.buff);
 	data.buff = NULL;
-	if (!data.line)
-		ft_list_clear(&head);
-	else
-		data.node->backup = cut_line(data.line);
-	return (data.line);
+	if (data.node->backup)
+		ft_cut_line(&data);
+	return (data.res);
 }
 
 // int main(int ac, char **av)

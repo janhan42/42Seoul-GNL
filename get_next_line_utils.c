@@ -6,11 +6,13 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 14:28:26 by janhan            #+#    #+#             */
-/*   Updated: 2023/11/02 18:50:14 by janhan           ###   ########.fr       */
+/*   Updated: 2023/11/04 17:54:03 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "./get_next_line.h"
+
 
 void	ft_list_clear(t_list **head)
 {
@@ -78,28 +80,35 @@ char	*ft_strchr(const char *str, int i)
 	return (0);
 }
 
-char	*ft_substr(char const *str, unsigned int start, size_t len)
+void	ft_list_dalone(t_list **head, int fd)
 {
-	size_t	i;
-	size_t	j;
-	char	*temp_str;
+	t_list	*cursor;
+	t_list	*before_node;
+	t_list	*next_node;
 
-	if (!str)
-		return (NULL);
-	temp_str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!temp_str)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (str[i])
+	cursor = *head;
+	while (cursor)
 	{
-		if (i >= start && j < len)
-		{
-			temp_str[j] = str[i];
-			j++;
-		}
-		i++;
+
+		next_node = cursor->next;
+
+
 	}
-	temp_str[j] = '\0';
-	return (temp_str);
+	// TODO:
+}
+
+#include <string.h>
+
+char	*ft_strdup(const char *s1)
+{
+	int		len;
+	char	*result;
+
+	len = ft_strlen(s1);
+	result = malloc(len + 1);
+	if (!result)
+		return (NULL);
+	memcpy(result, s1, len);
+	result[len] = '\0';
+	return (result);
 }
