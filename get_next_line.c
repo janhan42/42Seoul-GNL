@@ -6,12 +6,11 @@
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 12:08:38 by janhan            #+#    #+#             */
-/*   Updated: 2023/11/07 12:29:28 by janhan           ###   ########.fr       */
+/*   Updated: 2023/11/07 12:34:55 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <i386/limits.h>
 
 static t_list	*ft_new_node(int fd)
 {
