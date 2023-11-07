@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: janhan <janhan@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 14:28:26 by janhan            #+#    #+#             */
-/*   Updated: 2023/11/07 12:30:17 by janhan           ###   ########.fr       */
+/*   Updated: 2023/11/07 12:30:24 by janhan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include "./get_next_line.h"
-#include <stddef.h>
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {
